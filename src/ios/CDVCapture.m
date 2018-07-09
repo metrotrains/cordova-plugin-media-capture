@@ -279,6 +279,10 @@
 
 - (CDVPluginResult*)processVideo:(NSString*)moviePath forCallbackId:(NSString*)callbackId
 {
+    [self showAlertIfAccessProhibited];
+    if(![self hasCameraAccess]){
+        return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsArray:nil];
+    }
     // save the movie to photo album (only avail as of iOS 3.1)
 
     /* don't need, it should automatically get saved
